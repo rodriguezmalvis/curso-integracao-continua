@@ -79,4 +79,5 @@
   systemd:
     state: started
     name: tomcat
+    enabled: yes
   become: yes

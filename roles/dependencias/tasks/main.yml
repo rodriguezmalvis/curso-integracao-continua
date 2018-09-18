@@ -1,8 +1,8 @@
 ---
-#- name: 'atualizando repos'
-#  apt:
-#    update_cache: yes
-#  become: yes
+- name: 'atualizando repos'
+  apt:
+    update_cache: yes
+  become: yes
 
 - name: Incluindo repositorio JDK 8
   become: yes
