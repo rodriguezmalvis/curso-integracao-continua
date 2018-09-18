@@ -64,11 +64,15 @@
     - logs
   become: yes
 
-- name: 'Configura o serviço do Tomcat'
+- name: 'Configura o serviço e usuarios do Tomcat'
   template:
-    src: 'templates/tomcat.service.j2'
-    dest: '/etc/systemd/system/tomcat.service'
+    src: 'templates/{{ item.src }}'
+    dest: '{{ item.dest }}'
   become: yes
+  with_items:
+    - { src: 'tomcat.service.j2', dest: '/etc/systemd/system/tomcat.service' }
+    - { src: 'tomcat-users.xml.j2', dest: '/opt/tomcat/conf/tomcat-users.xml' }
+    - { src: 'context.xml.j2', dest: '/opt/tomcat/webapps/manager/META-INF/context.xml' }
 
 - name: 'Recarregando Serviços'
   systemd:
@@ -77,7 +81,7 @@
     
 - name: 'iniciando serviço Tomcat8'
   systemd:
-    state: started
+    state: restarted
     name: tomcat
     enabled: yes
   become: yes
