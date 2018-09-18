@@ -1,0 +1,6 @@
+---
+- name: 'Copiando Jenkins'
+  copy:
+    src: 'files/jenkins.war'
+    dest: '/opt/tomcat/webapps/'
+  become: yes
